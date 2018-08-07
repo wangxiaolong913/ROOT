@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib version="2.0" xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-jsptaglibrary_2_0.xsd">
+	<tlib-version>1.0</tlib-version>
+	<jsp-version>2.0</jsp-version>
+	<short-name>tomtag</short-name>
+	<uri>http://www.tomexam.com/taglib/tomtag</uri>
+	
+	<tag>
+		<name>Util</name>
+		<tag-class>com.tom.web.tag.TomUtilTag</tag-class>
+		<body-content>scriptless</body-content>
+		<attribute>
+			<name>action</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>data</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>ext</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>Authority</name>
+		<tag-class>com.tom.web.tag.TomAuthorityTag</tag-class>
+		<body-content>scriptless</body-content>
+		<attribute>
+			<name>authcode</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>placeholder</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>Message</name>
+		<tag-class>com.tom.web.tag.TomMessageTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>key</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+</taglib>
