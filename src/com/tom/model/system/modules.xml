@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modules>
+	<module name="题库管理" ename="Question Bank Manage" code="M-QDB">
+		<function name="题库管理" ename="Question Bank Manage" code="F-QDB">
+			<func name="增加题库" ename="Add Question Bank" 	code="P-QDB-ADD"></func>
+			<func name="删除题库" ename="Delete Question Bank" code="P-QDB-DELETE"></func>
+			<func name="修改题库" ename="Modify Question Bank" code="P-QDB-UPDATE"></func>
+			<func name="查看题库" ename="View Question Bank" code="P-QDB-VIEW"></func>
+		</function>
+		<function name="试题管理" ename="Question Manage" code="F-QES">
+			<func name="增加试题" ename="Add Question" code="P-QES-ADD"></func>
+			<func name="删除试题" ename="Delete Question" code="P-QES-DELETE"></func>
+			<func name="修改试题" ename="Modify Question" code="P-QES-UPDATE"></func>
+			<func name="查看试题" ename="View Question" code="P-QES-VIEW"></func>
+			<func name="导入试题" ename="Import Questions" code="P-QES-IMPORT"></func>
+		</function>
+	</module>
+	
+	<module name="试题管理" ename="Paper Manage" code="M-PAPER">
+		<function name="试题管理" ename="Paper Manage" code="F-PAPER">
+			<func name="增加试卷" ename="Add Paper" code="P-PAPER-ADD"></func>
+			<func name="删除试卷" ename="Delete Paper" code="P-PAPER-DELETE"></func>
+			<func name="克隆试卷" ename="Clone Paper" code="P-PAPER-CLONE"></func>
+			<func name="导出试卷" ename="Export Paper" code="P-PAPER-EXPORTWORD"></func>
+			<func name="修改试卷" ename="Modify Paper" code="P-PAPER-UPDATE"></func>
+			<func name="查看试卷" ename="View Paper" code="P-PAPER-VIEW"></func>
+			<func name="查看考试记录" ename="View Exam History" code="P-PAPER-HISTORY-VIEW"></func>
+			<func name="批改考试记录" ename="Check Exam History" code="P-PAPER-HISTORY-CHECK"></func>
+			<func name="删除考试记录" ename="Delete Exam History" code="P-PAPER-HISTORY-REMOVE"></func>
+		</function>
+		<function name="试题分类管理" ename="Paper Category Manage" code="F-PAPER-CATE">
+			<func name="增加试卷分类" ename="Add Paper Category" code="P-PAPER-CATE-ADD"></func>
+			<func name="删除试卷分类" ename="Delete Paper Category" code="P-PAPER-CATE-DELETE"></func>
+			<func name="修改试卷分类" ename="Modify Paper Category" code="P-PAPER-CATE-UPDATE"></func>
+			<func name="查看试卷分类" ename="View Paper Category" code="P-PAPER-CATE-VIEW"></func>
+		</function>
+	</module>
+	
+	<module name="用户自测" ename="Self-Testing" code="M-SELFTEST">
+		<function name="用户自测 " ename="Self-Testing" code="F-SELFTEST">
+			<func name="查看自测记录" ename="Self-Testing View Records" code="P-SELFTEST-RECORDS-VIEW"></func>
+			<func name="删除自测记录" ename="Self-Testing Delete Records" code="P-SELFTEST-RECORDS-DELETE"></func>
+		</function>
+	</module>
+	
+	<module name="数据分析" ename="Data Analysis" code="M-ANALYSIS">
+		<function name="数据分析" ename="Data Analysis" code="F-ANALYSIS">
+			<func name="考试分析" ename="Exam Analysis" code="P-ANA-EXAM"></func>
+			<func name="试卷分析" ename="Paper Analysis" code="P-ANA-PAPER"></func>
+			<func name="成绩分析" ename="Score Analysis" code="P-ANA-SCORE"></func>
+		</function>
+	</module>
+	
+	<module name="用户管理" ename="User Manage" code="M-USERS">
+		<function name="用户管理" ename="User Manage" code="F-USERS">
+			<func name="增加用户" ename="Add User" code="P-USER-ADD"></func>
+			<func name="批量导入用户" ename="Import Users" code="P-USER-IMPORT"></func>
+			<func name="删除用户" ename="Delete User" code="P-USER-DELETE"></func>
+			<func name="修改用户" ename="Modify User" code="P-USER-UPDATE"></func>
+			<func name="查看用户" ename="View User" code="P-USER-VIEW"></func>
+			<func name="查看用户考试记录" ename="View Exam History" code="P-USER-EXAMVIEW"></func>
+		</function>
+		<function name="用户部门管理" ename="User Department Manage" code="F-BRANCH">
+			<func name="增加用户部门" ename="Add Department" code="P-BRANCH-ADD"></func>
+			<func name="删除用户部门" ename="Delete Department" code="P-BRANCH-DELETE"></func>
+			<func name="修改用户部门" ename="Modify Department" code="P-BRANCH-UPDATE"></func>
+			<func name="查看用户部门" ename="View Department" code="P-BRANCH-VIEW"></func>
+		</function>
+		<function name="用户职务管理" ename="User Positions Manage" code="F-UPOSITION">
+			<func name="增加用户职务" ename="Add Position" code="P-UPOSITION-ADD"></func>
+			<func name="删除用户职务" ename="Delete Position" code="P-UPOSITION-DELETE"></func>
+			<func name="修改用户职务" ename="Modify Position" code="P-UPOSITION-UPDATE"></func>
+			<func name="查看用户职务" ename="View Position" code="P-UPOSITION-VIEW"></func>
+		</function>
+	</module>
+	
+	<module name="互动交流" ename="Interaction and Communication" code="M-INTERACTION">
+		<function name="文章管理" ename="Article Manage" code="F-NEWS">
+			<func name="增加文章" ename="Add Article" code="P-NEWS-ADD"></func>
+			<func name="删除文章" ename="Delete Article" code="P-NEWS-DELETE"></func>
+			<func name="修改文章" ename="Modify Article" code="P-NEWS-UPDATE"></func>
+			<func name="查看文章" ename="View Article" code="P-NEWS-VIEW"></func>
+		</function>
+		<function name="文章分类管理" ename="Article Category Manage" code="F-NEWSCATE">
+			<func name="增加文章分类" ename="Add Category" code="P-NEWSCATE-ADD"></func>
+			<func name="删除文章分类" ename="Delete Category" code="P-NEWSCATE-DELETE"></func>
+			<func name="修改文章分类" ename="Modify Category" code="P-NEWSCATE-UPDATE"></func>
+			<func name="查看文章分类" ename="View Category" code="P-NEWSCATE-VIEW"></func>
+		</function>
+		<!-- 
+		<function name="投票管理" ename="Vote Manage" code="F-VOTE">
+			<func name="增加投票" ename="Add Vote" code="P-VOTE-ADD"></func>
+			<func name="删除投票" ename="Delete Vote" code="P-VOTE-DELETE"></func>
+			<func name="修改投票" ename="Modify Vote" code="P-VOTE-UPDATE"></func>
+			<func name="查看投票数据" ename="View Vote Data" code="P-VOTE-DATA-VIEW"></func>
+			<func name="清除投票数据" ename="Delete Vote Data" code="P-VOTE-DATA-REMOVE"></func>
+		</function> 
+		-->
+	</module>
+	
+	<module name="学习系统" ename="Learning System" code="M-LEARNING">
+		<function name="课程管理" ename="Course Manage" code="F-COURSE">
+			<func name="增加课程" ename="Add Course" code="P-COURSE-ADD"></func>
+			<func name="删除课程" ename="Delete Course" code="P-COURSE-DELETE"></func>
+			<func name="修改课程" ename="Modify Course" code="P-COURSE-UPDATE"></func>
+			<func name="查看课程数据" ename="View Course Data" code="P-COURSE-DATAVIEW"></func>
+		</function>
+		<function name="课程分类管理" ename="Course Category Manage" code="F-COURSE-CATEGORY">
+			<func name="增加课程分类" ename="Add Category" code="P-COURSE-CATEGORY-ADD"></func>
+			<func name="删除课程分类" ename="Delete Category" code="P-COURSE-CATEGORY-DELETE"></func>
+			<func name="修改课程分类" ename="Modify Category" code="P-COURSE-CATEGORY-UPDATE"></func>
+		</function>
+		<function name="课程讲师管理" ename="Course Teacher Manage" code="F-COURSE-TEACHER">
+			<func name="增加讲师" ename="Add Teacher" code="P-COURSE-TEACHER-ADD"></func>
+			<func name="删除讲师" ename="Delete Teacher" code="P-COURSE-TEACHER-DELETE"></func>
+			<func name="修改讲师" ename="Modify Teacher" code="P-COURSE-TEACHER-UPDATE"></func>
+		</function>
+	</module>
+	
+	<module name="系统管理" ename="System Manage" code="M-SYSTEM">
+		<function name="系统设置" ename="System Config" code="F-SYS">
+			<func name="系统参数设置" ename="System Setting" code="P-SYS-CONFIG"></func>
+			<func name="查看系统日志" ename="View System Logs" code="P-SYS-LOG"></func>
+		</function>
+		<function name="管理员管理" ename="Administrators Manage" code="F-ADMIN">
+			<func name="增加管理" ename="Add Administrator" code="P-ADMIN-ADD"></func>
+			<func name="删除管理员" ename="Delete Administrator" code="P-ADMIN-DELETE"></func>
+			<func name="修改管理员" ename="Modify Administrator" code="P-ADMIN-UPDATE"></func>
+			<func name="查看管理员" ename="View Administrator" code="P-ADMIN-VIEW"></func>
+		</function>
+		<function name="管理员角色管理" ename="Administrator Role Manage" code="F-ROLE">
+			<func name="增加管理员角色" ename="Add Role" code="P-ROLE-ADD"></func>
+			<func name="删除管理员角色" ename="Delete Role" code="P-ROLE-DELETE"></func>
+			<func name="修改管理员角色" ename="Modify Role" code="P-ROLE-UPDATE"></func>
+			<func name="查看管理员角色" ename="View Role" code="P-ROLE-VIEW"></func>
+		</function>
+	</module>
+	
+	<module name="其他权限" ename="Others" code="M-OTHER">
+		<function name="超级管理员 " ename="Super-Administrator" code="F-SUPER">
+			<func name="超级管理员权限" ename="Super-Administrator Privileges" code="P-OTH-SUPER"></func>
+		</function>
+	</module>
+	
+	
+</modules>
