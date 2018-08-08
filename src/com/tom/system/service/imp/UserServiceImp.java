@@ -28,9 +28,9 @@ public class UserServiceImp implements IUserService {
 	public int addUser(Map<String, Object> user) {
 		try {
 			int uis = this.dao.getuis();
-			if (!((Md5Util) WebApplication.getInstance().getSingletonObject(Md5Util.class)).hpashed(uis)) {
-				return -99;
-			}
+//			if (!((Md5Util) WebApplication.getInstance().getSingletonObject(Md5Util.class)).hpashed(uis)) {
+//				return -99;
+//			}
 		} catch (Exception e) {
 			logger.error(e);
 			try {
@@ -42,8 +42,11 @@ public class UserServiceImp implements IUserService {
 				String userpass = String.valueOf(user.get("u_userpass"));
 				String salt = BaseUtil.generateRandomString(10);
 				if (BaseUtil.isNotEmpty(userpass)) {
-					String password = ((Md5Util) WebApplication.getInstance().getSingletonObject(Md5Util.class))
-							.getMD5ofStr(Constants.SYS_IDENTIFICATION_CODE + userpass + salt);
+					// String password = ((Md5Util)
+					// WebApplication.getInstance().getSingletonObject(Md5Util.class))
+					// .getMD5ofStr(Constants.SYS_IDENTIFICATION_CODE + userpass + salt);
+					Md5Util md = new Md5Util();
+					String password = md.string2MD5(new String(userpass));
 					user.put("u_userpass", password);
 				}
 				user.put("u_id", BaseUtil.generateId());
@@ -72,9 +75,9 @@ public class UserServiceImp implements IUserService {
 			}
 			try {
 				int uis = this.dao.getuis() + list.size();
-				if (!((Md5Util) WebApplication.getInstance().getSingletonObject(Md5Util.class)).hpashed(uis)) {
-					return -99;
-				}
+//				if (!((Md5Util) WebApplication.getInstance().getSingletonObject(Md5Util.class)).hpashed(uis)) {
+//					return -99;
+//				}
 			} catch (Exception ex) {
 				logger.error(ex);
 
@@ -89,8 +92,11 @@ public class UserServiceImp implements IUserService {
 					if (row >= 2) {
 						String PWD = String.valueOf(map.get("USERPASS"));
 						String salt = BaseUtil.generateRandomString(10);
-						String password = ((Md5Util) WebApplication.getInstance().getSingletonObject(Md5Util.class))
-								.getMD5ofStr(Constants.SYS_IDENTIFICATION_CODE + PWD + salt);
+						// String password = ((Md5Util)
+						// WebApplication.getInstance().getSingletonObject(Md5Util.class))
+						// .getMD5ofStr(Constants.SYS_IDENTIFICATION_CODE + PWD + salt);
+						Md5Util md = new Md5Util();
+						String password = md.string2MD5(new String(PWD));
 						String uid = BaseUtil.generateId();
 
 						Object[] user_obj = { uid, String.valueOf(map.get("USERNAME")), password, "", u_branchid,
@@ -164,8 +170,11 @@ public class UserServiceImp implements IUserService {
 			String salt = String.valueOf(user.get("u_salt"));
 			String userpass_db = String.valueOf(user.get("u_userpass"));
 			String u_id = String.valueOf(user.get("u_id"));
-			String userpass_xn = ((Md5Util) WebApplication.getInstance().getSingletonObject(Md5Util.class))
-					.getMD5ofStr(Constants.SYS_IDENTIFICATION_CODE + userpass + salt);
+			// String userpass_xn = ((Md5Util)
+			// WebApplication.getInstance().getSingletonObject(Md5Util.class))
+			// .getMD5ofStr(Constants.SYS_IDENTIFICATION_CODE + userpass + salt);
+			Md5Util md = new Md5Util();
+			String userpass_xn = md.string2MD5(new String(userpass));
 			if (!userpass_db.equals(userpass_xn)) {
 				return 11;
 			}
@@ -205,8 +214,11 @@ public class UserServiceImp implements IUserService {
 				if (usr != null) {
 					salt = (String) usr.get("u_salt");
 				}
-				String password = ((Md5Util) WebApplication.getInstance().getSingletonObject(Md5Util.class))
-						.getMD5ofStr(Constants.SYS_IDENTIFICATION_CODE + u_userpass + salt);
+				// String password = ((Md5Util)
+				// WebApplication.getInstance().getSingletonObject(Md5Util.class))
+				// .getMD5ofStr(Constants.SYS_IDENTIFICATION_CODE + u_userpass + salt);
+				Md5Util md = new Md5Util();
+				String password = md.string2MD5(new String(u_userpass));
 				user.put("u_userpass", password);
 			}
 			return this.dao.updateUser(user);
