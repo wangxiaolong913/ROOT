@@ -136,6 +136,7 @@ public class BaseJdbcDAO extends NamedParameterJdbcDaoSupport {
 
 	public int queryForInt(String sql) {
 		try {
+			int i = getJdbcTemplate().queryForInt(sql);
 			return getJdbcTemplate().queryForInt(sql);
 		} catch (EmptyResultDataAccessException e) {
 		}

@@ -27,35 +27,26 @@ public class UserServiceImp implements IUserService {
 
 	public int addUser(Map<String, Object> user) {
 		try {
-			int uis = this.dao.getuis();
-//			if (!((Md5Util) WebApplication.getInstance().getSingletonObject(Md5Util.class)).hpashed(uis)) {
-//				return -99;
-//			}
-		} catch (Exception e) {
-			logger.error(e);
-			try {
-				String u_username = (String) user.get("u_username");
-				Map<String, Object> userchk = this.dao.getUserByUsername(u_username);
-				if (userchk != null) {
-					return 3;
-				}
-				String userpass = String.valueOf(user.get("u_userpass"));
-				String salt = BaseUtil.generateRandomString(10);
-				if (BaseUtil.isNotEmpty(userpass)) {
-					// String password = ((Md5Util)
-					// WebApplication.getInstance().getSingletonObject(Md5Util.class))
-					// .getMD5ofStr(Constants.SYS_IDENTIFICATION_CODE + userpass + salt);
-					Md5Util md = new Md5Util();
-					String password = md.string2MD5(new String(userpass));
-					user.put("u_userpass", password);
-				}
-				user.put("u_id", BaseUtil.generateId());
-				user.put("u_salt", salt);
-
-				return this.dao.addUser(user);
-			} catch (Exception ep) {
-				logger.error(ep);
+			String u_username = (String) user.get("u_username");
+			Map<String, Object> userchk = this.dao.getUserByUsername(u_username);
+			if (userchk != null) {
+				return 3;
 			}
+			String userpass = String.valueOf(user.get("u_userpass"));
+			String salt = BaseUtil.generateRandomString(10);
+			if (BaseUtil.isNotEmpty(userpass)) {
+				// String password = ((Md5Util)
+				// WebApplication.getInstance().getSingletonObject(Md5Util.class))
+				// .getMD5ofStr(Constants.SYS_IDENTIFICATION_CODE + userpass + salt);
+				Md5Util md = new Md5Util();
+				String password = md.string2MD5(new String(userpass));
+				user.put("u_userpass", password);
+			}
+			user.put("u_id", BaseUtil.generateId());
+			user.put("u_salt", salt);
+			return this.dao.addUser(user);
+		} catch (Exception ep) {
+			logger.error(ep);
 		}
 		return 0;
 	}
@@ -75,9 +66,11 @@ public class UserServiceImp implements IUserService {
 			}
 			try {
 				int uis = this.dao.getuis() + list.size();
-//				if (!((Md5Util) WebApplication.getInstance().getSingletonObject(Md5Util.class)).hpashed(uis)) {
-//					return -99;
-//				}
+				// if (!((Md5Util)
+				// WebApplication.getInstance().getSingletonObject(Md5Util.class)).hpashed(uis))
+				// {
+				// return -99;
+				// }
 			} catch (Exception ex) {
 				logger.error(ex);
 
