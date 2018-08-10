@@ -52,7 +52,7 @@ public class PaperServiceHelper
         }
         catch (Exception e)
         {
-          System.out.println("��������������������" + e.getMessage());
+          System.out.println("批改填空题发生异常:" + e.getMessage());
           e.printStackTrace();
         }
       }

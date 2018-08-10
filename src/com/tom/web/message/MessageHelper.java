@@ -42,7 +42,7 @@ public class MessageHelper
     catch (Exception e)
     {
       e.printStackTrace();
-      throw new RuntimeException("��������������������������," + e.getMessage());
+      throw new RuntimeException("读取国际化消息文件发生错误," + e.getMessage());
     }
   }
   

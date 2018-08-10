@@ -5,7 +5,7 @@
 	<tlib-version>1.0</tlib-version>
 	<jsp-version>2.0</jsp-version>
 	<short-name>tomtag</short-name>
-	<uri>http://www.tomexam.com/taglib/tomtag</uri>
+<!-- 	<uri>http://www.tomexam.com/taglib/tomtag</uri> -->
 	
 	<tag>
 		<name>Util</name>

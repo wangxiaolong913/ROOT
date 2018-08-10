@@ -33,15 +33,15 @@ public class CorePaperCheckServiceImp implements ICorePaperCheckService {
 
 	public PaperCheckResult doCheckPaper(Paper paper, JSONObject json) {
 		if (paper == null) {
-			logger.error("��������:��������������.");
+			logger.error("自动批改:试卷对象不存在.");
 			return null;
 		}
 		if (json == null) {
-			logger.error("��������:��������������.");
+			logger.error("自动批改:用户答案不存在.");
 			return null;
 		}
 		if ((paper.getSections() == null) || (paper.getSections().size() < 1)) {
-			logger.error("��������:����������.");
+			logger.error("自动批改:试卷不完整.");
 			return null;
 		}
 		JSONObject check = new JSONObject();
@@ -49,14 +49,40 @@ public class CorePaperCheckServiceImp implements ICorePaperCheckService {
 		int totalScore = 0;
 		try {
 			Iterator localIterator2;
-			label417: for (Iterator localIterator1 = paper.getSections().iterator(); localIterator1
+			for (Iterator localIterator1 = paper.getSections().iterator(); localIterator1
 					.hasNext(); localIterator2.hasNext()) {
 				PaperSection section = (PaperSection) localIterator1.next();
 				if ((section == null) || (section.getQuestions() == null) || (section.getQuestions().size() <= 0)) {
-					break label417;
+					break ;
 				}
 				localIterator2 = section.getQuestions().iterator();
-				continue;
+//				continue;
+				Question question = (Question) localIterator2.next();
+				if (question != null) {
+					String qType = question.getType();
+					String userkey = "";
+					try {
+						userkey = json.getString("Q-" + question.getId());
+					} catch (Exception e) {
+						logger.error("自动批改:获取用户答案失败,答案不存在,可能没有作答." + e.getMessage());
+					}
+					int userScore = 0;
+					if (("1".equals(qType)) || ("2".equals(qType)) || ("3".equals(qType))) {
+						String _key = BaseUtil.isEmpty(question.getKey()) ? ""
+								: question.getKey().replace(",", "").replace(Constants.TM_SPLITER, "").replace(" ", "");
+
+						String _userkey = userkey == null ? "" : userkey.replace(Constants.TM_SPLITER, "");
+						if (_key.equals(_userkey)) {
+							userScore = question.getScore();
+						}
+					} else if ("4".equals(qType)) {
+						QuestionBlankFill _question = (QuestionBlankFill) question;
+						userScore = PaperServiceHelper.BlankFillChecker(_question, userkey);
+					}
+					check.put("Q-" + question.getId(), Integer.valueOf(userScore));
+
+					totalScore += userScore;
+				}
 			}
 			String pid = json.getString("e_pid");
 			String uid = json.getString("e_uid");
@@ -72,11 +98,11 @@ public class CorePaperCheckServiceImp implements ICorePaperCheckService {
 			result.setUserdata(userdata);
 			result.setSuccess(true);
 
-			logger.info("������������������������" + result.toString());
+			logger.info("自动批改完成,结果对象:" + result.toString());
 
 			return result;
 		} catch (Exception e) {
-			logger.error("��������:��������������." + e.getMessage());
+			logger.error("自动批改:批改时发生异常." + e.getMessage());
 			e.printStackTrace();
 		}
 		return null;
@@ -84,7 +110,7 @@ public class CorePaperCheckServiceImp implements ICorePaperCheckService {
 
 	public int doSaveUserPapers(List<PaperCheckResult> list) {
 		if ((list == null) || (list.size() < 1)) {
-			logger.warn("��������:��������������������������.");
+			logger.warn("自动批改:保存用户试卷,目标队列为空.");
 			return 0;
 		}
 		List<List<Object>> userpapers = new ArrayList();
@@ -121,23 +147,23 @@ public class CorePaperCheckServiceImp implements ICorePaperCheckService {
 		if ((list == null) || (list.size() < 1)) {
 			return 0;
 		}
-		logger.info("��������:������[" + list.size() + "]����������");
+		logger.info("批量批改:获取到[" + list.size() + "]份答卷数据");
 		List<PaperCheckResult> results = new ArrayList();
 		for (Map<String, Object> map : list) {
 			String pid = String.valueOf(map.get("e_pid"));
 			String uid = String.valueOf(map.get("e_uid"));
 			if ((BaseUtil.isEmpty(pid)) || (BaseUtil.isEmpty(uid))) {
-				logger.error("��������:������������������.pid=" + pid + ",uid=" + uid);
+				logger.error("批量批改:用户或试卷信息丢失.pid=" + pid + ",uid=" + uid);
 			} else {
 				Paper paper = this.corePaperService.getPaper(pid);
 				if (paper == null) {
-					logger.error("��������:����������!!!.pid=" + pid + ",uid=" + uid);
+					logger.error("批量批改:试卷不存在!!!.pid=" + pid + ",uid=" + uid);
 				} else {
 					if (1 == paper.getPapertype()) {
 						paper = this.corePaperService.getUserRandomPaper(uid, pid);
 					}
 					if (paper == null) {
-						logger.error("��������:��������������!!!.pid=" + pid + ",uid=" + uid);
+						logger.error("批量批改:随机试卷不存在!!!.pid=" + pid + ",uid=" + uid);
 					} else {
 						JSONObject json = JSONObject.fromObject(map);
 
@@ -145,7 +171,7 @@ public class CorePaperCheckServiceImp implements ICorePaperCheckService {
 						if ((result != null) && (result.isSuccess())) {
 							results.add(result);
 						} else {
-							logger.error("������������������������������������, map = " + map);
+							logger.error("自动批改发生异常,答卷被存到磁盘文件, map = " + map);
 							try {
 								String filename = pid + "_" + uid + ".dat";
 								String separator = System.getProperty("file.separator");

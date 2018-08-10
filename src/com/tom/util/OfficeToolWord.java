@@ -55,7 +55,7 @@ public class OfficeToolWord {
 		cell01.setBorder(0);
 		header.addCell(cell01);
 
-		Paragraph date = new Paragraph("��������: " + new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+		Paragraph date = new Paragraph("生成日期: " + new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 		date.setAlignment(2);
 		date.setFont(headerFooterFont);
 		cell01 = new Cell(date);
@@ -73,9 +73,9 @@ public class OfficeToolWord {
 		cell02.setBorder(0);
 		footer.addCell(cell02);
 
-		Paragraph pageNumber = new Paragraph("�� ");
+		Paragraph pageNumber = new Paragraph("第 ");
 		pageNumber.add(new RtfPageNumber());
-		pageNumber.add(new Chunk(" ��"));
+		pageNumber.add(new Chunk(" 页"));
 		pageNumber.setAlignment(2);
 		pageNumber.setFont(headerFooterFont);
 		cell02 = new Cell(pageNumber);
@@ -89,14 +89,14 @@ public class OfficeToolWord {
 		title.setFont(titleFont);
 		document.add(title);
 		for (int i = 0; i < 5; i++) {
-			Paragraph subTitle = new Paragraph(i + 1 + "������" + (i + 1));
+			Paragraph subTitle = new Paragraph(i + 1 + "、标题" + (i + 1));
 			subTitle.setFont(subTitleFont);
 			subTitle.setSpacingBefore(10.0F);
 			subTitle.setFirstLineIndent(0.0F);
 			document.add(subTitle);
 			for (int j = 0; j < 3; j++) {
 				String contextString = j + 1 + "."
-						+ "iText������������������PDF������java������iText��java����������������������������������������������������������";
+						+ "iText是一个能够快速产生PDF文件的java类库。iText的java类对于那些要产生包含文本,表格,图形的只读文档是很有用的";
 				Paragraph context = new Paragraph(contextString);
 				context.setAlignment(0);
 				context.setFont(contextFont);
@@ -105,7 +105,7 @@ public class OfficeToolWord {
 				document.add(context);
 				for (short k = 0; k < 4; k = (short) (k + 1)) {
 					char enString = 'A';
-					String answerString = (char) (enString + k) + "." + "��������������������������������";
+					String answerString = (char) (enString + k) + "." + "表格,图形的只读文档是很有用的.";
 					Paragraph answer = new Paragraph(answerString);
 					answer.setAlignment(0);
 					answer.setFont(contextFont);
@@ -120,10 +120,10 @@ public class OfficeToolWord {
 
 	public static void makePaperDoc(String path, Paper paper) throws Exception {
 		if (path == null) {
-			throw new Exception("������������");
+			throw new Exception("目标路径为空");
 		}
 		if (paper == null) {
-			throw new Exception("����������");
+			throw new Exception("试卷不存在");
 		}
 		Document document = new Document(PageSize.A4);
 		RtfWriter2.getInstance(document, new FileOutputStream(path));
@@ -146,7 +146,7 @@ public class OfficeToolWord {
 		cell01.setBorder(0);
 		header.addCell(cell01);
 
-		Paragraph date = new Paragraph("��������: " + new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+		Paragraph date = new Paragraph("生成日期: " + new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 		date.setAlignment(2);
 		date.setFont(headerFooterFont);
 		cell01 = new Cell(date);
@@ -164,9 +164,9 @@ public class OfficeToolWord {
 		cell02.setBorder(0);
 		footer.addCell(cell02);
 
-		Paragraph pageNumber = new Paragraph("�� ");
+		Paragraph pageNumber = new Paragraph("第 ");
 		pageNumber.add(new RtfPageNumber());
-		pageNumber.add(new Chunk(" ��"));
+		pageNumber.add(new Chunk(" 页"));
 		pageNumber.setAlignment(2);
 		pageNumber.setFont(headerFooterFont);
 		cell02 = new Cell(pageNumber);
@@ -184,11 +184,11 @@ public class OfficeToolWord {
 		int rownbr = 0;
 		if ((LIST_SECTIONS != null) && (LIST_SECTIONS.size() > 0)) {
 			Iterator localIterator2;
-			label1188: for (Iterator localIterator1 = LIST_SECTIONS.iterator(); localIterator1.hasNext(); localIterator2
+			for (Iterator localIterator1 = LIST_SECTIONS.iterator(); localIterator1.hasNext(); localIterator2
 					.hasNext()) {
 				PaperSection section = (PaperSection) localIterator1.next();
-				Paragraph subTitle = new Paragraph(section.getName() + "," + section.getRemark() + ",��"
-						+ (section.getQuestions() == null ? 0 : section.getQuestions().size()) + "��");
+				Paragraph subTitle = new Paragraph(section.getName() + "," + section.getRemark() + ",共"
+						+ (section.getQuestions() == null ? 0 : section.getQuestions().size()) + "题");
 				subTitle.setFont(subTitleFont);
 				subTitle.setSpacingBefore(10.0F);
 				subTitle.setFirstLineIndent(0.0F);
@@ -196,15 +196,70 @@ public class OfficeToolWord {
 
 				List<Question> LIST_QUESTIONS = section.getQuestions();
 				if ((LIST_QUESTIONS == null) || (LIST_QUESTIONS.size() <= 0)) {
-					break label1188;
+					break;
 				}
 				if ("1".equals(Integer.valueOf(paper.getOrdertype()))) {
 					Collections.shuffle(LIST_QUESTIONS);
 				}
-				localIterator2 = LIST_QUESTIONS.iterator();
-				continue;
-			}
+				localIterator2 = LIST_QUESTIONS.iterator(); 
+//				continue;
+				Question question = (Question)localIterator2.next();
+		        String qtype = question.getType();
+		        rownbr++;
+		        
+		        String question_content = "";
+		        if ("4".equals(qtype)) {
+		          question_content = BaseUtil.FormatBlankQuestions(
+		            question.getContent(), "_______");
+		        } else {
+		          question_content = question.getContent();
+		        }
+		        question_content = BaseUtil.Html2TextFormat(question_content);
+		        
+		        Paragraph context = new Paragraph("第" + rownbr + "题,分值:(" + question.getScore() + ")\n" + question_content);
+		        context.setAlignment(0);
+		        context.setFont(contextFont);
+		        context.setSpacingBefore(10.0F);
+		        context.setFirstLineIndent(0.0F);
+		        document.add(context);
+		        
+		        StringBuffer OPTIONS = new StringBuffer("");
+		        if ("1".equals(qtype))
+		        {
+		          QuestionSingleChoice _question = (QuestionSingleChoice)question;
+		          List<Option> LIST_OPTIONS = _question.getOptions();
+		          if ((LIST_OPTIONS != null) && (LIST_OPTIONS.size() > 0)) {
+		            for (Option option : LIST_OPTIONS) {
+		              OPTIONS.append(option.getAlisa() + " : " + option.getText() + "\n");
+		            }
+		          }
+		        }
+		        else if ("2".equals(qtype))
+		        {
+		          QuestionMultipleChoice _question = (QuestionMultipleChoice)question;
+		          List<Option> LIST_OPTIONS = _question.getOptions();
+		          if ((LIST_OPTIONS != null) && (LIST_OPTIONS.size() > 0)) {
+		            for (Option option : LIST_OPTIONS) {
+		              OPTIONS.append(option.getAlisa() + " : " + option.getText() + "\n");
+		            }
+		          }
+		        }
+		        else if ("3".equals(qtype))
+		        {
+		          OPTIONS.append("正确       错误");
+		        }
+		        else if ((!"4".equals(qtype)) && ("5".equals(qtype)))
+		        {
+		          OPTIONS.append("请答题\n\n\n");
+		        }
+		        Paragraph options = new Paragraph(OPTIONS.toString());
+		        options.setAlignment(0);
+		        options.setFont(contextFont);
+		        options.setSpacingBefore(10.0F);
+		        options.setFirstLineIndent(0.0F);
+		        document.add(options);
+		      }
+		    }
+		    document.close();
+		  }
 		}
-		document.close();
-	}
-}

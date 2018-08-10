@@ -11,24 +11,24 @@ import org.apache.log4j.Logger;
 public class ModelHelper
 {
   private static Logger logger = Logger.getLogger(ModelHelper.class);
-  public static final String[] FLAG_CONTENT = { "[����]", "[QUESTION]" };
-  public static final String[] FLAG_TYPE = { "[����]", "[TYPE]" };
-  public static final String[] FLAG_OPTIONS = { "[����]", "[OPTIONS]" };
-  public static final String[] FLAG_KEY = { "[����]", "[KEY]" };
-  public static final String[] FLAG_RESOLVE = { "[����]", "[RESOLVE]" };
-  public static final String[] FLAG_TYPE_SINGLECHOICE = { "����", "SINGLECHOICE" };
-  public static final String[] FLAG_TYPE_MULTIPLECHOICE = { "����", "MULTIPLECHOICE" };
-  public static final String[] FLAG_TYPE_JUDGMENT = { "����", "JUDGMENT" };
-  public static final String[] FLAG_TYPE_BLANKFILL = { "����", "BLANKFILL" };
-  public static final String[] FLAG_TYPE_ESSAY = { "����", "ESSAY" };
-  public static final String[] FLAG_VAL_JUDGMENT_YES = { "����", "YES" };
+  public static final String[] FLAG_CONTENT = { "[题干]", "[QUESTION]" };
+  public static final String[] FLAG_TYPE = { "[类型]", "[TYPE]" };
+  public static final String[] FLAG_OPTIONS = { "[选项]", "[OPTIONS]" };
+  public static final String[] FLAG_KEY = { "[答案]", "[KEY]" };
+  public static final String[] FLAG_RESOLVE = { "[解析]", "[RESOLVE]" };
+  public static final String[] FLAG_TYPE_SINGLECHOICE = { "单选", "SINGLECHOICE" };
+  public static final String[] FLAG_TYPE_MULTIPLECHOICE = { "多选", "MULTIPLECHOICE" };
+  public static final String[] FLAG_TYPE_JUDGMENT = { "判断", "JUDGMENT" };
+  public static final String[] FLAG_TYPE_BLANKFILL = { "填空", "BLANKFILL" };
+  public static final String[] FLAG_TYPE_ESSAY = { "问答", "ESSAY" };
+  public static final String[] FLAG_VAL_JUDGMENT_YES = { "正确", "YES" };
   
   @Deprecated
   public static Object _genQuestion(String xml)
   {
     if (BaseUtil.isEmpty(xml))
     {
-      logger.warn("XML����������������������������������������");
+      logger.warn("XML转换到对象发生失败,因为传入的字符串为空");
       return null;
     }
     try
@@ -47,7 +47,7 @@ public class ModelHelper
   {
     if (BaseUtil.isEmpty(xml))
     {
-      logger.warn("XML����������������������������������������");
+      logger.warn("XML转换到对象发生失败,因为传入的字符串为空");
       return null;
     }
     try
@@ -90,8 +90,8 @@ public class ModelHelper
   
   public static void main(String... s)
   {
-    String xx = "BLANK121������";
-    String[] _arrblk = xx.replace("��", ":").split(":");
+    String xx = "BLANK121：曹操";
+    String[] _arrblk = xx.replace("：", ":").split(":");
     System.out.println(_arrblk[0]);
     System.out.println(_arrblk[1]);
   }

@@ -34,7 +34,7 @@ public class CorePaperServiceImp implements ICorePaperService {
 		}
 		paper = getBasicPaperFromDatabase(pid);
 		if (paper == null) {
-			logger.warn("PID=" + pid + "������������");
+			logger.warn("PID=" + pid + "的试卷不存在");
 			return null;
 		}
 		if (paper.getPapertype() == 0) {
@@ -65,9 +65,9 @@ public class CorePaperServiceImp implements ICorePaperService {
 				if ("4".equals(questionType)) {
 					return new QuestionBlankFill((QuestionBlankFill) question);
 				}
-//				if (!"5".equals(questionType)) {
-//					break label380;
-//				}
+				if (!"5".equals(questionType)) {
+					return question;
+				}
 				return new QuestionEssay((QuestionEssay) question);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -78,7 +78,7 @@ public class CorePaperServiceImp implements ICorePaperService {
 		try {
 			Map<String, Object> map = this.dao.getQuestion(qid);
 			if (map == null) {
-				logger.warn("QID=" + qid + "������������");
+				logger.warn("QID=" + qid + "的试题不存在");
 				return null;
 			}
 			String questionData = String.valueOf(map.get("q_data"));
@@ -101,16 +101,16 @@ public class CorePaperServiceImp implements ICorePaperService {
 		} catch (Exception e) {
 			logger.error(e);
 		}
-		label380: return question;
+		return question;
 	}
 
 	public Paper getUserRandomPaper(String uid, String pid) {
 		Paper xpaper = null;
-		logger.info("����������������...pid=" + pid + ",uid=" + uid);
+		logger.info("获取学员随机试卷...pid=" + pid + ",uid=" + uid);
 		try {
 			Map<String, Object> map = this.dao.getUserRandomPaper(uid, pid);
 			if (map == null) {
-				logger.info("����������������...pid=" + pid + ",uid=" + uid + ",������");
+				logger.info("获取学员随机试卷...pid=" + pid + ",uid=" + uid + ",不存在");
 				return null;
 			}
 			String paperData = String.valueOf(map.get("r_detail"));
@@ -125,16 +125,16 @@ public class CorePaperServiceImp implements ICorePaperService {
 		Paper xpaper = null;
 		Map<String, Object> map = null;
 
-		logger.info("������������...pid=" + pid + ",uid=" + uid);
+		logger.info("获取随机试卷...pid=" + pid + ",uid=" + uid);
 		try {
 			map = this.dao.getUserRandomPaper(uid, pid);
 			if (map == null) {
-				logger.info("������������...pid=" + pid + ",uid=" + uid + ",��������");
+				logger.info("获取随机试卷...pid=" + pid + ",uid=" + uid + ",首次创建");
 				xpaper = buildRandomPaper(pid);
 				int row = this.dao.saveUserRandomPaper(uid, pid, ModelHelper.formatObject(xpaper));
-				logger.info("����������������������,pid=" + pid + ",uid=" + uid + ",rows=" + row);
+				logger.info("保存首次生成的试卷入库,pid=" + pid + ",uid=" + uid + ",rows=" + row);
 			} else {
-				logger.info("������������...pid=" + pid + ",uid=" + uid + ",����������");
+				logger.info("获取随机试卷...pid=" + pid + ",uid=" + uid + ",数据库获取");
 				String paperData = String.valueOf(map.get("r_detail"));
 				xpaper = (Paper) ModelHelper.convertObject(paperData);
 			}
@@ -193,7 +193,7 @@ public class CorePaperServiceImp implements ICorePaperService {
 							question.setScore(score);
 							newQuestions.add(question);
 						} else {
-							logger.warn("����������������������qid=" + qid);
+							logger.warn("组卷需要的试题不存在:qid=" + qid);
 						}
 					}
 					section.setQuestions(newQuestions);

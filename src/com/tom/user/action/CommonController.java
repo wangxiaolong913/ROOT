@@ -188,7 +188,7 @@ public class CommonController
       json.put("message", MessageHelper.getMessage("message.sys.login.sessioncode_lost"));
       out.write(json.toString());
       
-      SystemLoggerHelper.Log(BaseUtil.getInt(usertype), username, "doLogin", request.getRequestURI(), "SESSION����������(session_code_lost)", ip);
+      SystemLoggerHelper.Log(BaseUtil.getInt(usertype), username, "doLogin", request.getRequestURI(), "SESSION验证码失效(session_code_lost)", ip);
       return;
     }
     if (!sessionCode.equals(usercode))
@@ -197,7 +197,7 @@ public class CommonController
       json.put("message", MessageHelper.getMessage("message.sys.login.usercode_wrong"));
       out.write(json.toString());
       
-      SystemLoggerHelper.Log(BaseUtil.getInt(usertype), username, "doLogin", request.getRequestURI(), "��������������(verify_code_wrong)", ip);
+      SystemLoggerHelper.Log(BaseUtil.getInt(usertype), username, "doLogin", request.getRequestURI(), "用户验证码错误(verify_code_wrong)", ip);
       return;
     }
     Map<String, Object> map = this.service.doLogin(usertype, username, userpass);
@@ -223,7 +223,7 @@ public class CommonController
         
         CacheHelper.addCache("SessionCache", "U" + uid, sessionid);
         
-        SystemLoggerHelper.Log(BaseUtil.getInt(usertype), username, "doLogin", request.getRequestURI(), "��������(login_success)", ip);
+        SystemLoggerHelper.Log(BaseUtil.getInt(usertype), username, "doLogin", request.getRequestURI(), "登录成功(login_success)", ip);
       }
       else
       {
@@ -232,7 +232,7 @@ public class CommonController
     }
     else
     {
-      SystemLoggerHelper.Log(BaseUtil.getInt(usertype), username, "doLogin", request.getRequestURI(), "��������(login_failed),username=" + username, ip);
+      SystemLoggerHelper.Log(BaseUtil.getInt(usertype), username, "doLogin", request.getRequestURI(), "登录失败(login_failed),username=" + username, ip);
     }
     json.put("code", Integer.valueOf(code));
     json.put("message", MessageHelper.getMessage("message.sys.login." + msgkey));
@@ -248,7 +248,7 @@ public class CommonController
     String username = String.valueOf(session.getAttribute(Constants.SESSION_USERNAME));
     String utype = String.valueOf(session.getAttribute(Constants.SESSION_USERTYPE));
     
-    SystemLoggerHelper.Log(BaseUtil.getInt(utype), username, "doLogout", request.getRequestURI(), "��������(logout_success)", getUserIP(request));
+    SystemLoggerHelper.Log(BaseUtil.getInt(utype), username, "doLogout", request.getRequestURI(), "登出成功(logout_success)", getUserIP(request));
     
     session.setAttribute(Constants.SESSION_USERID, null);
     session.setAttribute(Constants.SESSION_USERNAME, null);
@@ -270,7 +270,7 @@ public class CommonController
     String username = String.valueOf(session.getAttribute(Constants.SESSION_USERNAME));
     String utype = String.valueOf(session.getAttribute(Constants.SESSION_USERTYPE));
     
-    SystemLoggerHelper.Log(BaseUtil.getInt(utype), username, "doLogout", request.getRequestURI(), "��������(logout_success)", getUserIP(request));
+    SystemLoggerHelper.Log(BaseUtil.getInt(utype), username, "doLogout", request.getRequestURI(), "登出成功(logout_success)", getUserIP(request));
     
     session.setAttribute(Constants.SESSION_USERID, null);
     session.setAttribute(Constants.SESSION_USERNAME, null);
@@ -308,7 +308,7 @@ public class CommonController
     user.put("u_id", uid);
     int i = this.service.updateUserProfile(user);
     
-    SystemLoggerHelper.Log(0, username, "updateProfile", request.getRequestURI(), "������������(update_user_profile),result=" + i, getUserIP(request));
+    SystemLoggerHelper.Log(0, username, "updateProfile", request.getRequestURI(), "修改用户信息(update_user_profile),result=" + i, getUserIP(request));
     
     BaseMessage message = null;
     if (i == 1) {
@@ -351,7 +351,7 @@ public class CommonController
     admin.put("a_id", uid);
     int i = this.service.updateAdminProfile(admin);
     
-    SystemLoggerHelper.Log(1, username, "updateProfile", request.getRequestURI(), "��������������(update_admin_profile),result=" + i, getUserIP(request));
+    SystemLoggerHelper.Log(1, username, "updateProfile", request.getRequestURI(), "修改管理员信息(update_admin_profile),result=" + i, getUserIP(request));
     
     BaseMessage message = null;
     if (i == 1) {

@@ -22,7 +22,7 @@ public class SystemTask
   {
     int users = this.service.getTotalUsers();
     if (users < 0) {
-      logger.error("��������:����������,users=" + users);
+      logger.error("定时任务:用户数异常,users=" + users);
     }
   }
   
@@ -31,11 +31,11 @@ public class SystemTask
   {
     if (!this.loaded)
     {
-      logger.info("��������:������������...");
+      logger.info("系统设置:设定系统参数...");
       String lang = this.service.getConfigValue("sys_lang");
       MessageHelper.setLang(lang);
       
-      logger.info("��������:������������...");
+      logger.info("系统设置:加载系统权限...");
       this.service.loadAllAdminPrivilege();
       
       this.loaded = true;
@@ -47,7 +47,7 @@ public class SystemTask
   {
     int rows = this.service.doCheckSystemLogQueue();
     if (rows > 0) {
-      logger.info("��������:��������" + rows + "����������.");
+      logger.info("定时任务:成功入库" + rows + "条系统日志.");
     }
   }
   

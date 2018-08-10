@@ -21,7 +21,7 @@ public class Pagination
     throws Exception
   {
     if (pageSize == 0) {
-      throw new Exception("������������������0!");
+      throw new Exception("单页展示条数不得为0!");
     }
     this.currentPageNo = currentPageNo;
     this.pageSize = pageSize;

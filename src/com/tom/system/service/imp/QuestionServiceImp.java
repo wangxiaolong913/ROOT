@@ -16,7 +16,12 @@ import com.tom.util.OfficeToolExcel;
 import com.tom.util.QuestionImportExcelHelper;
 import com.tom.util.QuestionImportTxtHelper;
 import com.tom.util.TomException;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -64,6 +69,27 @@ public class QuestionServiceImp implements IQuestionService {
 		return 0;
 	}
 
+	private List<String> getFileContent(MultipartFile file) {
+		File tmpFile = null;
+		String line = "";
+		List<String> data = new ArrayList<>();
+		try {
+			tmpFile = File.createTempFile("TEMPFILE" + System.currentTimeMillis(), ".tmp");
+			file.transferTo(tmpFile);
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(tmpFile), "UTF-8"));
+			while ((line = br.readLine()) != null) {
+				if ("".equals(line)) {
+					continue;
+				}
+				data.add(line);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println(data.toString());
+		return data;
+	}
+
 	public int importQuestionsFromTxt(MultipartFile file, HttpServletRequest request) {
 		List<Map<String, Object>> list = new ArrayList();
 
@@ -94,11 +120,6 @@ public class QuestionServiceImp implements IQuestionService {
 			logger.error(e);
 		}
 		return -1;
-	}
-
-	private List<String> getFileContent(MultipartFile file) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public int importQuestionsFromExcel(MultipartFile file, HttpServletRequest request) {

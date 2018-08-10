@@ -32,7 +32,7 @@ public class PaperTask
   {
     int rows = this.paperCheckService.doCheckPaperQueue();
     if (rows > 0) {
-      logger.info("��������:��������" + rows + "������.");
+      logger.info("定时任务:成功批改" + rows + "份试卷.");
     }
   }
 }

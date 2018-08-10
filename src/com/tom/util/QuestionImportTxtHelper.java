@@ -24,7 +24,7 @@ public class QuestionImportTxtHelper
     throws TomException
   {
     if ((lines == null) || (lines.size() < 1)) {
-      throw new TomException(-1, "������������");
+      throw new TomException(-1, "文件内容为空");
     }
     List<Map<String, Object>> list = new ArrayList();
     try
@@ -76,7 +76,7 @@ public class QuestionImportTxtHelper
     }
     catch (Exception e)
     {
-      throw new TomException(-9, "��������������");
+      throw new TomException(-9, "文件格式化错误");
     }
     return list;
   }
@@ -184,7 +184,7 @@ public class QuestionImportTxtHelper
     }
     catch (Exception e)
     {
-      logger.error("��������q_data����������:" + e.getMessage());
+      logger.error("构建q_data时发生异常:" + e.getMessage());
     }
     return "";
   }
@@ -211,7 +211,7 @@ public class QuestionImportTxtHelper
       }
       catch (Exception e)
       {
-        logger.error("����������������������������������������������������������������������������" + source);
+        logger.error("批量导入, 格式化选择项时发生一个异常,即将忽略本行数据,当前这条数据不合法," + source);
       }
     }
     return list;
@@ -232,7 +232,7 @@ public class QuestionImportTxtHelper
       try
       {
         String _blk = sblank.substring(1, sblank.length() - 1);
-        String[] _arrblk = _blk.replace("��", ":").split(":");
+        String[] _arrblk = _blk.replace("：", ":").split(":");
         String _name = _arrblk[0];
         String _value = _arrblk[1];
         String _sbid = _name.replace("BLANK", "");
@@ -241,7 +241,7 @@ public class QuestionImportTxtHelper
       }
       catch (Exception e)
       {
-        logger.error("����������������������������������������������������������������������������" + source);
+        logger.error("批量导入,格式化空格项时发生一个异常,即将忽略本行数据,当前这条数据不合法," + source);
       }
     }
     return list;

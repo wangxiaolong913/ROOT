@@ -137,9 +137,7 @@
             </table>
 
 			</form>
-        </div>
-        
-        
+        </div>       
     </div>
 
 	<!-- tm_section_template -->
